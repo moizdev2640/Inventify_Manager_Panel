@@ -12,6 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from '../config';
 
 const BulkUploadModal = ({ open, handleClose }) => {
     const [file, setFile] = useState(null);
@@ -36,7 +37,7 @@ const BulkUploadModal = ({ open, handleClose }) => {
 
         setLoading(true);
         try {
-            const response = await axios.post('http://localhost:5000/api/inventory/bulk-upload', formData, {
+            const response = await axios.post(`${API_BASE_URL}/inventory/bulk-upload`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             setSuccessMessage(response.data.message || 'File uploaded successfully.');

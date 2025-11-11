@@ -23,6 +23,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { keyframes } from '@mui/system';
+import { API_BASE_URL } from '../config';
 
 // Defining heavy animations
 const slideInFromLeft = keyframes`
@@ -67,7 +68,7 @@ const OrderManagement = () => {
 
     const fetchOrders = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/orders/', {
+            const response = await axios.get(`${API_BASE_URL}/orders`, {
                 params: { page, status: statusFilter, limit: 10 },
             });
             setOrders(response.data.orders);
@@ -85,7 +86,7 @@ const OrderManagement = () => {
         }
 
         try {
-            const response = await axios.get(`http://localhost:5000/api/orders/search/${searchQuery}`);
+            const response = await axios.get(`${API_BASE_URL}/orders/search/${searchQuery}`);
 
             setOrders(response.data.orders);  // Setting orders from response
             setTotalPages(1); // Since we have only one result
@@ -98,7 +99,7 @@ const OrderManagement = () => {
 
     const handleStatusChange = async (orderId, newStatus) => {
         try {
-            await axios.patch(`http://localhost:5000/api/orders/${orderId}/status`, { status: newStatus });
+            await axios.patch(`${API_BASE_URL}/orders/${orderId}/status`, { status: newStatus });
             setIsDialogOpen(false);
             fetchOrders();
             toast.success(`Order status updated to ${newStatus}`);
@@ -119,7 +120,7 @@ const OrderManagement = () => {
 
     const handleDownloadInvoice = async (orderId) => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/orders/${orderId}/invoice`, {
+            const response = await axios.get(`${API_BASE_URL}/orders/${orderId}/invoice`, {
                 responseType: 'blob',
             });
             const url = window.URL.createObjectURL(new Blob([response.data]));

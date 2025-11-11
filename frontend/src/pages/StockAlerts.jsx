@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import WarningIcon from '@mui/icons-material/Warning';
 import ErrorIcon from '@mui/icons-material/Error';
+import { API_BASE_URL } from '../config';
 
 const StockAlerts = () => {
     const [stockAlerts, setStockAlerts] = useState([]);
@@ -18,7 +19,7 @@ const StockAlerts = () => {
     const fetchStockAlerts = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:5000/api/stock-alerts/?page=${page}&limit=${limit}`);
+            const response = await fetch(`${API_BASE_URL}/stock-alerts/?page=${page}&limit=${limit}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch stock alerts');
             }
@@ -78,7 +79,7 @@ const StockAlerts = () => {
         try {
             toast.info('Checking inventory started...', { autoClose: 2000 });
             setInventoryChecking(true);
-            const response = await fetch('http://localhost:5000/api/inventory/check');
+            const response = await fetch(`${API_BASE_URL}/inventory/check`);
             if (!response.ok) {
                 throw new Error('Failed to check inventory stock levels');
             }

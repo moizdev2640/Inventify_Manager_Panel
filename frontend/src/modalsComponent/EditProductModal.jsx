@@ -12,6 +12,7 @@ import {
 import { AddCircle, RemoveCircle } from "@mui/icons-material"; // For adding and removing key-value pairs
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from "../config";
 
 const EditProductModal = ({ open, onClose, item }) => {
     const [formData, setFormData] = useState({
@@ -87,7 +88,7 @@ const EditProductModal = ({ open, onClose, item }) => {
         }, {});
 
         try {
-            const response = await fetch(`http://localhost:5000/api/inventory/update/${item.inventoryId}`, {
+            const response = await fetch(`${API_BASE_URL}/inventory/update/${item.inventoryId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

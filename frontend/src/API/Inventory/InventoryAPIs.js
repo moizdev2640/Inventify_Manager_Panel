@@ -1,13 +1,13 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../../config';
 
-// API base URL
-const API_URL = 'http://localhost:5000/api/inventory/';
+const INVENTORY_API_URL = `${API_BASE_URL}/inventory`;
 
 // Fetch inventory items with pagination support
 export const fetchInventory = async (page = 1, inventoryId = '', productName = '', category = '', quantity = '', sortBy = '') => {
     try {
         // Construct the API URL with query parameters for pagination
-        const response = await axios.get(API_URL, {
+        const response = await axios.get(INVENTORY_API_URL, {
             params: {
                 page,
                 inventoryId,
@@ -29,7 +29,7 @@ export const fetchInventory = async (page = 1, inventoryId = '', productName = '
 // API call to add a new product
 export const addProduct = async (formData) => {
     try {
-        const response = await axios.post(`${API_URL}add`, formData, {
+        const response = await axios.post(`${INVENTORY_API_URL}/add`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

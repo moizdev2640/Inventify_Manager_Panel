@@ -1,11 +1,10 @@
 import axios from 'axios';
-
-const API_URL = 'http://localhost:5000/api/';
+import { API_BASE_URL } from '../../config';
 
 //for dashboard KPIS
 export const fetchKPIData = async () => {
     try {
-        const response = await axios.get(`${API_URL}dashboard/kpis`); // Use API_URL constant
+        const response = await axios.get(`${API_BASE_URL}/dashboard/kpis`); // Use API_URL constant
         return response.data;
     } catch (error) {
         throw error; // Propagate error so the component can handle it
@@ -15,7 +14,7 @@ export const fetchKPIData = async () => {
 //for overview bar chart dashboard graph
 export const fetchTopProducts = async (period) => {
     try {
-        const response = await axios.get(`${API_URL}overview/top-products?period=${period}`);
+        const response = await axios.get(`${API_BASE_URL}/overview/top-products?period=${period}`);
         const processedData = response.data.data
             .map((product) => ({
                 name: product.productName,
@@ -35,7 +34,7 @@ export const fetchTopProducts = async (period) => {
 export const fetchInventoryStatus = async () => {
     try {
         const response = await fetch(
-            `${API_URL}overview/inventory-status`
+            `${API_BASE_URL}/overview/inventory-status`
         );
         const { data } = await response.json();
 

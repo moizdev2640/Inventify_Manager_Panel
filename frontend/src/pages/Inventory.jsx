@@ -12,6 +12,7 @@ import BulkUploadModal from '../modalsComponent/bulkUploadModal';
 import { motion } from 'framer-motion'; // Import Framer Motion
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE_URL } from '../config';
 
 const Inventory = () => {
     const theme = useTheme();  // Access the theme using the useTheme hook
@@ -58,7 +59,7 @@ const Inventory = () => {
 
     const confirmDelete = async () => {
         try {
-            await axios.delete(`http://localhost:5000/api/inventory/delete/${deleteItemId}`);
+            await axios.delete(`${API_BASE_URL}/inventory/delete/${deleteItemId}`);
             setInventory(inventory.filter(item => item.inventoryId !== deleteItemId)); // Remove from state
             setIsDeleteDialogOpen(false); // Close the dialog
             setDeleteItemId(null); // Clear the delete ID

@@ -17,6 +17,7 @@ import {
   Alert,
 } from "@mui/material";
 import LoadingOverlay from "../components/LoadingOverlay"; // Import LoadingOverlay
+import { API_BASE_URL } from "../config";
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -104,20 +105,14 @@ function SignupPage() {
 
       if (activeTab === 0) {
         // Login Request
-        response = await axios.post(
-          "http://localhost:3001/api/auth/login",
-          loginForm
-        );
+        response = await axios.post(`${API_BASE_URL}/auth/login`, loginForm);
 
         console.log("Login Response:", response.data);
         // Store token in localStorage or sessionStorage
         localStorage.setItem("token", response.data.token);
       } else {
         // Signup Request
-        response = await axios.post(
-          "http://localhost:3001/api/auth/signup",
-          signupForm
-        );
+        response = await axios.post(`${API_BASE_URL}/auth/signup`, signupForm);
         console.log("Signup Response:", response.data);
         // Store token in localStorage or sessionStorage
         localStorage.setItem("token", response.data.token);

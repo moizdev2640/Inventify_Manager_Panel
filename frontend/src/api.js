@@ -1,7 +1,7 @@
 import axios from "axios";
+import { API_BASE_URL } from "./config";
 
-// API base URL
-const API_URL = "http://localhost:3001/api/inventory/";
+const INVENTORY_API_URL = `${API_BASE_URL}/inventory`;
 
 // Fetch inventory items with pagination support
 export const fetchInventory = async (
@@ -14,7 +14,7 @@ export const fetchInventory = async (
 ) => {
   try {
     // Construct the API URL with query parameters for pagination
-    const response = await axios.get(API_URL, {
+    const response = await axios.get(INVENTORY_API_URL, {
       params: {
         page,
         inventoryId,
@@ -35,7 +35,7 @@ export const fetchInventory = async (
 // Delete an inventory item by id
 export const deleteInventoryItem = async (id) => {
   try {
-    await axios.delete(`${API_URL}${id}`);
+    await axios.delete(`${INVENTORY_API_URL}/delete/${id}`);
   } catch (error) {
     console.error("Error deleting inventory item", error);
     throw error;
