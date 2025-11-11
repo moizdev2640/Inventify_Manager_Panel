@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Typography, List, ListItem, Card, CardContent, Pagination, Button, CircularProgress } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,7 +16,7 @@ const StockAlerts = () => {
     const [limit] = useState(10);
     const [inventoryChecking, setInventoryChecking] = useState(false);
 
-    const fetchStockAlerts = async () => {
+    const fetchStockAlerts = useCallback(async () => {
         try {
             setLoading(true);
             const response = await fetch(`${API_BASE_URL}/stock-alerts/?page=${page}&limit=${limit}`);
@@ -31,11 +31,11 @@ const StockAlerts = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [page, limit]);
 
     useEffect(() => {
         fetchStockAlerts();
-    }, [page, limit]);
+    }, [fetchStockAlerts]);
 
     const getAlertIcon = (alertType) => {
         switch (alertType) {

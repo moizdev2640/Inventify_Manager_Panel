@@ -46,7 +46,6 @@ function SignupPage() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [isRedirecting, setIsRedirecting] = useState(false); // To handle page redirection
   const [alertVisible, setAlertVisible] = useState(false); // State to control alert visibility
 
   const handleTabChange = (event, newValue) => {
@@ -121,7 +120,6 @@ function SignupPage() {
       // Show loading overlay for 3 seconds
       setTimeout(() => {
         setLoading(false); // Stop loading
-        setIsRedirecting(true); // Set redirect flag
         window.location.href = "/dashboard"; // Redirect to dashboard route
       }, 3000); // Wait for 3 seconds before redirecting
     } catch (error) {
